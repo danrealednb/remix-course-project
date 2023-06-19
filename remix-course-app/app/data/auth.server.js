@@ -106,5 +106,13 @@ export async function destroyUserSession(request) {
       "Set-Cookie": await sessionStorage.destroySession(session),
     },
   });
-  sessionStorage.destroySession(session);
+  //   sessionStorage.destroySession(session);
+}
+
+export async function requireUserSession(request) {
+  const userId = await getUserFromSession(request);
+  if (!userId) {
+    throw redirect("/auth?mode=login");
+  }
+  return userId;
 }

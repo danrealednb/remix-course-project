@@ -19,6 +19,7 @@ import { getExpenses } from "~/data/expenses.server";
 import { json } from "@remix-run/node";
 import { useCatch, useLoaderData } from "@remix-run/react";
 import Error from "~/components/util/Error";
+import { requireUserSession } from "../../data/auth.server";
 
 // export const meta = () => {
 //     return [
@@ -39,9 +40,10 @@ export default function ExpensesAnalysisPage() {
   );
 }
 
-export async function loader() {
+export async function loader({request}) {
   console.log("EXPENSES ANALYSIS LOADER");
-  const expenses = await getExpenses();
+  const userId = await requireUserSession(request)
+  const expenses = await getExpenses(userId);
   if (!expenses || expenses.length === 0) {
     throw json(
       { message: "Could not load expense for requested analysis." },
