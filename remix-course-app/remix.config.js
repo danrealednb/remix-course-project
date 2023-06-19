@@ -21,7 +21,7 @@ const { createRoutesFromFolders } = require("@remix-run/v1-route-convention");
 module.exports = {
   server:
     process.env.NETLIFY || process.env.NETLIFY_LOCAL
-      ? "./server.ts"
+      ? "./server.js"
       : undefined,
   serverBuildPath: ".netlify/functions-internal/server.js",
 
