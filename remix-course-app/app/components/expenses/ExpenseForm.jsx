@@ -33,6 +33,11 @@ function ExpenseForm() {
         date: "",
       };
 
+      if(params.id && !expenseData) {
+        // invalid id
+        return <p>Invalid Expense Id</p>
+      }
+
   return (
     <Form
       method={expenseData ? "patch" : "post"}
