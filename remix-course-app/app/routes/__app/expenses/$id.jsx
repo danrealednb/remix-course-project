@@ -50,6 +50,17 @@ export async function action({ params, request }) {
   } else if (request.method === "DELETE") {
     await deleteExpense(expenseId);
     // return redirect("/expenses");
-    return {deletedId: expenseId}
+    return { deletedId: expenseId };
   }
 }
+
+export function meta({ params, location, data, parentsData }) {
+  const expense = parentsData["routes/__app/expenses"].find(
+    (expense) => expense.id === params.id
+  );
+  return {
+    title: expense.title,
+    description: "Manage your expenses with ease",
+  };
+}
+
