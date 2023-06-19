@@ -19,6 +19,12 @@ const { createRoutesFromFolders } = require("@remix-run/v1-route-convention");
 
 /** @type {import('@remix-run/dev').AppConfig} */
 module.exports = {
+  server:
+    process.env.NETLIFY || process.env.NETLIFY_LOCAL
+      ? "./server.ts"
+      : undefined,
+  serverBuildPath: ".netlify/functions-internal/server.js",
+
   future: {
     // makes the warning go away in v1.15
     v2_routeConvention: true,
